@@ -1,0 +1,74 @@
+Parameters:
+  AdfProjectName:
+    Description: AdfProjectName
+    Type: String
+  BuildId:
+    Description: BuildId
+    Type: String
+  Environment:
+    AllowedValues:
+      - dev
+      - test
+      - prod
+    Description: Environment
+    Type: String
+  ManagedSiteWiseAssetPropertyLambdaArn:
+    Default: /iiot/ManagedSiteWiseAssetPropertyLambdaArn
+    Description: Environment
+    Type: AWS::SSM::Parameter::Value<String>
+  ServiceName:
+    Description: ServiceName
+    Type: String
+  StagingBucketName:
+    Description: Staging bucket Name
+    Type: String
+  TenantId:
+    Description: TenantId
+    Type: String
+  TenantModules:
+    Description: TenantModules
+    Type: String
+Resources:
+  Assets:
+    ExpandList: !Ref TenantModules
+    Properties:
+      Parameters:
+        CommandEventModelId: !GetAtt 'SignalModels.Outputs.CommandEventModelId'
+        ConnectedGuideEventModelId: !GetAtt 'SignalModels.Outputs.ConnectedGuideEventModelId'
+        EndBilletEventModelId: !GetAtt 'SignalModels.Outputs.EndBilletEventModelId'
+        Environment: !Ref 'Environment'
+        FaultEventModelId: !GetAtt 'SignalModels.Outputs.FaultEventModelId'
+        LineModelId: !GetAtt 'HierarchyModels.Outputs.LineModelId'
+        MachineModelId: !GetAtt 'HierarchyModels.Outputs.MachineModelId'
+        ManagedSiteWiseAssetPropertyLambdaArn: !Ref 'ManagedSiteWiseAssetPropertyLambdaArn'
+        PlantModelId: !GetAtt 'HierarchyModels.Outputs.PlantModelId'
+        ServiceModelId: !GetAtt 'HierarchyModels.Outputs.ServiceModelId'
+        ServiceName: !Ref 'ServiceName'
+        TenantId: !Ref 'TenantId'
+      TemplateURL: !Sub 'https://${StagingBucketName}.s3.amazonaws.com/${AWS::AccountId}/${AdfProjectName}/${BuildId}/${TenantId}/assets/%s.yml'
+      TimeoutInMinutes: 30
+    Type: AWS::CloudFormation::Stack
+  HierarchyModels:
+    Properties:
+      Parameters:
+        CommandEventModelId: !GetAtt 'SignalModels.Outputs.CommandEventModelId'
+        ConnectedGuideEventModelId: !GetAtt 'SignalModels.Outputs.ConnectedGuideEventModelId'
+        EndBilletEventModelId: !GetAtt 'SignalModels.Outputs.EndBilletEventModelId'
+        Environment: !Ref 'Environment'
+        FaultEventModelId: !GetAtt 'SignalModels.Outputs.FaultEventModelId'
+        ServiceName: !Ref 'ServiceName'
+        TenantId: !Ref 'TenantId'
+      TemplateURL: !Sub 'https://${StagingBucketName}.s3.amazonaws.com/common/${AdfProjectName}/${BuildId}/models/hierarchy.yml'
+      TimeoutInMinutes: 30
+    Type: AWS::CloudFormation::Stack
+  SignalModels:
+    Properties:
+      Parameters:
+        Environment: !Ref 'Environment'
+        ServiceName: !Ref 'ServiceName'
+        TenantId: !Ref 'TenantId'
+      TemplateURL: !Sub 'https://${StagingBucketName}.s3.amazonaws.com/common/${AdfProjectName}/${BuildId}/models/signals.yml'
+      TimeoutInMinutes: 30
+    Type: AWS::CloudFormation::Stack
+Transform:
+  - ExpandList

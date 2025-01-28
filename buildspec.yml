@@ -1,0 +1,22 @@
+version: 0.2
+
+env:
+  parameter-store:
+    MASTER_ACC_ID: 'master_account_id'
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+  pre_build:
+    commands:
+      - aws s3 cp s3://$S3_BUCKET_NAME/adf-build/ adf-build/ --recursive --quiet
+      - pip install --upgrade pip -q
+      - pip install -r adf-build/requirements.txt -q
+      - python ./adf-build/helpers/upload_staging_assets.py
+      - python adf-build/generate_params.py
+  build:
+    commands:
+      - bash adf-build/helpers/package_transform.sh
+artifacts:
+  files: "**/*"
