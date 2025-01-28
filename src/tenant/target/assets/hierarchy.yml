@@ -1,0 +1,78 @@
+Parameters:
+  CommandEventModelId:
+    Description: Id of CommandEvent
+    Type: String
+  ConnectedGuideEventModelId:
+    Description: Id of ConnectedGuideEvent
+    Type: String
+  EndBilletEventModelId:
+    Description: Id of EndBilletEvent
+    Type: String
+  Environment:
+    Description: Environment Id
+    Type: String
+  FaultEventModelId:
+    Description: Id of FaultEvent
+    Type: String
+  LineModelId:
+    Description: Id of Line
+    Type: String
+  MachineModelId:
+    Description: Id of Machine
+    Type: String
+  ManagedSiteWiseAssetPropertyLambdaArn:
+    Description: Lambda Arn of sitewise custom resources
+    Type: String
+  PlantModelId:
+    Description: Id of Plant
+    Type: String
+  ServiceModelId:
+    Description: Id of Service
+    Type: String
+  ServiceName:
+    Description: Name of the service
+    Type: String
+  TenantId:
+    Description: Tenant Id
+    Type: String
+Resources:
+  PlantWirerod:
+    Properties:
+      AssetDescription: 'Plant: WIREROD'
+      AssetHierarchies:
+        - ChildAssetId: !Sub '{{resolve:ssm:/${ServiceName}/WIREROD/WS}}'
+          LogicalId: Line
+      AssetModelId: !Ref 'PlantModelId'
+      AssetName: WIREROD
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Plant
+          Value: WIREROD
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::Asset
+  Service:
+    Properties:
+      AssetDescription: !Sub 'ServiceName: ${ServiceName}'
+      AssetHierarchies:
+        - ChildAssetId: !Ref 'PlantWirerod'
+          LogicalId: Plant
+      AssetModelId: !Ref 'ServiceModelId'
+      AssetName: !Ref 'ServiceName'
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Plant
+          Value: WIREROD
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::Asset

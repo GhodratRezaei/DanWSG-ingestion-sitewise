@@ -1,0 +1,137 @@
+Description: Stack for SiteWise shared models - Base Hierarchy
+Outputs:
+  LineModelId:
+    Description: Id of Signal Line
+    Value: !Ref 'Line'
+  MachineModelId:
+    Description: Id of Signal Machine
+    Value: !Ref 'Machine'
+  PlantModelId:
+    Description: Id of Signal Plant
+    Value: !Ref 'Plant'
+  ServiceModelId:
+    Description: Id of Signal Service
+    Value: !Ref 'Service'
+Parameters:
+  CommandEventModelId:
+    Description: Parameter for signal CommandEvent
+    Type: String
+  ConnectedGuideEventModelId:
+    Description: Parameter for signal ConnectedGuideEvent
+    Type: String
+  EndBilletEventModelId:
+    Description: Parameter for signal EndBilletEvent
+    Type: String
+  Environment:
+    Description: Environment Id
+    Type: String
+  FaultEventModelId:
+    Description: Parameter for signal FaultEvent
+    Type: String
+  ServiceName:
+    Description: Name of the service
+    Type: String
+  TenantId:
+    Description: Tenant Id
+    Type: String
+Resources:
+  Line:
+    Properties:
+      AssetModelDescription: Name of the line
+      AssetModelHierarchies:
+        - ChildAssetModelId: !Ref 'Machine'
+          LogicalId: Machine
+          Name: Machine
+      AssetModelName: !Sub '${ServiceName}/Line'
+      AssetModelProperties:
+        - DataType: STRING
+          LogicalId: location
+          Name: location
+          Type:
+            TypeName: Attribute
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::AssetModel
+  Machine:
+    Properties:
+      AssetModelDescription: Name of the machine
+      AssetModelHierarchies:
+        - ChildAssetModelId: !Ref 'ConnectedGuideEventModelId'
+          LogicalId: ConnectedGuideEvent
+          Name: ConnectedGuideEvent
+        - ChildAssetModelId: !Ref 'EndBilletEventModelId'
+          LogicalId: EndBilletEvent
+          Name: EndBilletEvent
+        - ChildAssetModelId: !Ref 'CommandEventModelId'
+          LogicalId: CommandEvent
+          Name: CommandEvent
+        - ChildAssetModelId: !Ref 'FaultEventModelId'
+          LogicalId: FaultEvent
+          Name: FaultEvent
+      AssetModelName: !Sub '${ServiceName}/Machine'
+      AssetModelProperties:
+        - DataType: INTEGER
+          LogicalId: uptime
+          Name: uptime
+          Type:
+            TypeName: Measurement
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::AssetModel
+  Plant:
+    Properties:
+      AssetModelDescription: Name of the plant
+      AssetModelHierarchies:
+        - ChildAssetModelId: !Ref 'Line'
+          LogicalId: Line
+          Name: Line
+      AssetModelName: !Sub '${ServiceName}/Plant'
+      AssetModelProperties:
+        - DataType: STRING
+          LogicalId: location
+          Name: location
+          Type:
+            TypeName: Attribute
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::AssetModel
+  Service:
+    Properties:
+      AssetModelDescription: Name of the service
+      AssetModelHierarchies:
+        - ChildAssetModelId: !Ref 'Plant'
+          LogicalId: Plant
+          Name: Plant
+      AssetModelName: !Sub '${ServiceName}/Service'
+      AssetModelProperties: []
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::AssetModel

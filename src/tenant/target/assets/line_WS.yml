@@ -1,0 +1,408 @@
+Parameters:
+  CommandEventModelId:
+    Description: Id of CommandEvent
+    Type: String
+  ConnectedGuideEventModelId:
+    Description: Id of ConnectedGuideEvent
+    Type: String
+  EndBilletEventModelId:
+    Description: Id of EndBilletEvent
+    Type: String
+  Environment:
+    Description: Environment Id
+    Type: String
+  FaultEventModelId:
+    Description: Id of FaultEvent
+    Type: String
+  LineModelId:
+    Description: Id of Line
+    Type: String
+  MachineModelId:
+    Description: Id of Machine
+    Type: String
+  ManagedSiteWiseAssetPropertyLambdaArn:
+    Description: Lambda Arn of sitewise custom resources
+    Type: String
+  PlantModelId:
+    Description: Id of Plant
+    Type: String
+  ServiceModelId:
+    Description: Id of Service
+    Type: String
+  ServiceName:
+    Description: Name of the service
+    Type: String
+  TenantId:
+    Description: Tenant Id
+    Type: String
+Resources:
+  Line:
+    Properties:
+      AssetDescription: 'Line: WS'
+      AssetHierarchies:
+        - ChildAssetId: !Ref 'MWSGWS'
+          LogicalId: Machine
+      AssetModelId: !Ref 'LineModelId'
+      AssetName: WS
+      AssetProperties: []
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Plant
+          Value: WIREROD
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::Asset
+  LineNameParams:
+    Properties:
+      Name: !Sub '/${ServiceName}/WIREROD/WS'
+      Type: String
+      Value: !Ref 'Line'
+    Type: AWS::SSM::Parameter
+  MWSGWS:
+    Properties:
+      AssetDescription: 'Machine: WSGWS'
+      AssetHierarchies:
+        - ChildAssetId: !Ref 'MWsgwsSconnected'
+          LogicalId: ConnectedGuideEvent
+        - ChildAssetId: !Ref 'MWsgwsSendbillet'
+          LogicalId: EndBilletEvent
+        - ChildAssetId: !Ref 'MWsgwsScommand'
+          LogicalId: CommandEvent
+        - ChildAssetId: !Ref 'MWsgwsSfault'
+          LogicalId: FaultEvent
+      AssetModelId: !Ref 'MachineModelId'
+      AssetName: WSGWS
+      AssetProperties: []
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Plant
+          Value: WIREROD
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::Asset
+  MWsgwsScommand:
+    Properties:
+      AssetDescription: 'Machine sensor: Commands Event'
+      AssetModelId: !Ref 'CommandEventModelId'
+      AssetName: sCommand
+      AssetProperties:
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgMemDanID
+          LogicalId: wsgMemDanID
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgACT
+          LogicalId: wsgACT
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgGDPres
+          LogicalId: wsgGDPres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgMatPres
+          LogicalId: wsgMatPres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCurrCnt
+          LogicalId: wsgCurrCnt
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgLCValue1
+          LogicalId: wsgLCValue1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgLCValue2
+          LogicalId: wsgLCValue2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgRollerSpeed1
+          LogicalId: wsgRollerSpeed1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgRollerSpeed2
+          LogicalId: wsgRollerSpeed2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgPosRH1
+          LogicalId: wsgPosRH1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgPosRH2
+          LogicalId: wsgPosRH2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgGap
+          LogicalId: wsgGap
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgMemCnt
+          LogicalId: wsgMemCnt
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_SETDef
+          LogicalId: wsgCMD_SETDef
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_SETstore
+          LogicalId: wsgCMD_SETstore
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_VALRes
+          LogicalId: wsgCMD_VALRes
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_ALRres
+          LogicalId: wsgCMD_ALRres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_DRVRes
+          LogicalId: wsgCMD_DRVRes
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_MRSta
+          LogicalId: wsgCMD_MRSta
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_MRStp
+          LogicalId: wsgCMD_MRStp
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_RCSta
+          LogicalId: wsgCMD_RCSta
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_RCStp
+          LogicalId: wsgCMD_RCStp
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_STATw1
+          LogicalId: wsgCMD_STATw1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_STATw2
+          LogicalId: wsgCMD_STATw2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_SYM_OPNsta
+          LogicalId: wsgCMD_SYM_OPNsta
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_SYM_CLSsta
+          LogicalId: wsgCMD_SYM_CLSsta
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_JOGOpn1
+          LogicalId: wsgCMD_JOGOpn1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_JOGOpn2
+          LogicalId: wsgCMD_JOGOpn2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_JOGCls1
+          LogicalId: wsgCMD_JOGCls1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_JOGCls2
+          LogicalId: wsgCMD_JOGCls2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_RETMid1
+          LogicalId: wsgCMD_RETMid1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_RETMid2
+          LogicalId: wsgCMD_RETMid2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_MEMRead
+          LogicalId: wsgCMD_MEMRead
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sCommand/CommandEvent/wsgCMD_MEMWrite
+          LogicalId: wsgCMD_MEMWrite
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Plant
+          Value: WIREROD
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::Asset
+  MWsgwsSconnected:
+    Properties:
+      AssetDescription: 'Machine sensor: Connected Guide Event'
+      AssetModelId: !Ref 'ConnectedGuideEventModelId'
+      AssetName: sConnected
+      AssetProperties:
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemDanID
+          LogicalId: wsgMemDanID
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgACT
+          LogicalId: wsgACT
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgGDPres
+          LogicalId: wsgGDPres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMatPres
+          LogicalId: wsgMatPres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgCurrCnt
+          LogicalId: wsgCurrCnt
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgLCValue1
+          LogicalId: wsgLCValue1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgLCValue2
+          LogicalId: wsgLCValue2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgRollerSpeed1
+          LogicalId: wsgRollerSpeed1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgRollerSpeed2
+          LogicalId: wsgRollerSpeed2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgPosRH1
+          LogicalId: wsgPosRH1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgPosRH2
+          LogicalId: wsgPosRH2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgGap
+          LogicalId: wsgGap
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemCnt
+          LogicalId: wsgMemCnt
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemStrk1
+          LogicalId: wsgMemStrk1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemStrk2
+          LogicalId: wsgMemStrk2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgPosSet1
+          LogicalId: wsgPosSet1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgPosSet2
+          LogicalId: wsgPosSet2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgAutEN
+          LogicalId: wsgAutEN
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgADJStep
+          LogicalId: wsgADJStep
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemInitGapSet
+          LogicalId: wsgMemInitGapSet
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgAutADJDB
+          LogicalId: wsgAutADJDB
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgEncPLS
+          LogicalId: wsgEncPLS
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMotRatio
+          LogicalId: wsgMotRatio
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgScwRatio
+          LogicalId: wsgScwRatio
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgRlrDPTH
+          LogicalId: wsgRlrDPTH
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemID
+          LogicalId: wsgMemID
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemPos1
+          LogicalId: wsgMemPos1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemPos2
+          LogicalId: wsgMemPos2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgRDiam
+          LogicalId: wsgRDiam
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sConnected/ConnectedGuideEvent/wsgMemInitGap
+          LogicalId: wsgMemInitGap
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Plant
+          Value: WIREROD
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::Asset
+  MWsgwsSendbillet:
+    Properties:
+      AssetDescription: 'Machine sensor: End Billet'
+      AssetModelId: !Ref 'EndBilletEventModelId'
+      AssetName: sEndBillet
+      AssetProperties:
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgMemDanID
+          LogicalId: wsgMemDanID
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgACT
+          LogicalId: wsgACT
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgGDPres
+          LogicalId: wsgGDPres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgMatPres
+          LogicalId: wsgMatPres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgCurrCnt
+          LogicalId: wsgCurrCnt
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgLCValue1
+          LogicalId: wsgLCValue1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgLCValue2
+          LogicalId: wsgLCValue2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgRollerSpeed1
+          LogicalId: wsgRollerSpeed1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgRollerSpeed2
+          LogicalId: wsgRollerSpeed2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgPosRH1
+          LogicalId: wsgPosRH1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgPosRH2
+          LogicalId: wsgPosRH2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgGap
+          LogicalId: wsgGap
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgMemCnt
+          LogicalId: wsgMemCnt
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgMRdone1
+          LogicalId: wsgMRdone1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgMRdone2
+          LogicalId: wsgMRdone2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgPosDlt1
+          LogicalId: wsgPosDlt1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgPosDlt2
+          LogicalId: wsgPosDlt2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgLCdifRH1
+          LogicalId: wsgLCdifRH1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgLCdifRH2
+          LogicalId: wsgLCdifRH2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgLClamRH1
+          LogicalId: wsgLClamRH1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgLClamRH2
+          LogicalId: wsgLClamRH2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgLCwaitRH1
+          LogicalId: wsgLCwaitRH1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsgLCwaitRH2
+          LogicalId: wsgLCwaitRH2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sEndBillet/EndBilletEvent/wsglamTIM
+          LogicalId: wsglamTIM
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Plant
+          Value: WIREROD
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::Asset
+  MWsgwsSfault:
+    Properties:
+      AssetDescription: 'Machine sensor: Fault Event'
+      AssetModelId: !Ref 'FaultEventModelId'
+      AssetName: sFault
+      AssetProperties:
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgMemDanID
+          LogicalId: wsgMemDanID
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgACT
+          LogicalId: wsgACT
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgGDPres
+          LogicalId: wsgGDPres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgMatPres
+          LogicalId: wsgMatPres
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgCurrCnt
+          LogicalId: wsgCurrCnt
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgLCValue1
+          LogicalId: wsgLCValue1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgLCValue2
+          LogicalId: wsgLCValue2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgRollerSpeed1
+          LogicalId: wsgRollerSpeed1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgRollerSpeed2
+          LogicalId: wsgRollerSpeed2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgPosRH1
+          LogicalId: wsgPosRH1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgPosRH2
+          LogicalId: wsgPosRH2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgGap
+          LogicalId: wsgGap
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgMemCnt
+          LogicalId: wsgMemCnt
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsFLGrlr1
+          LogicalId: bmsFLGrlr1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsFLGrlr2
+          LogicalId: bmsFLGrlr2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsFLTrlr1
+          LogicalId: bmsFLTrlr1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsFLTrlr2
+          LogicalId: bmsFLTrlr2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsWARrlr1
+          LogicalId: bmsWARrlr1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsWARrlr2
+          LogicalId: bmsWARrlr2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsDECtimDiff
+          LogicalId: bmsDECtimDiff
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsRLRSpdDiff
+          LogicalId: bmsRLRSpdDiff
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsDECtimSet
+          LogicalId: bmsDECtimSet
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/bmsSPDDiffSet
+          LogicalId: bmsSPDDiffSet
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgDRVerr1
+          LogicalId: wsgDRVerr1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgDRVerr2
+          LogicalId: wsgDRVerr2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgJOGerr1
+          LogicalId: wsgJOGerr1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgJOGerr2
+          LogicalId: wsgJOGerr2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgLCerr1
+          LogicalId: wsgLCerr1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgLCerr2
+          LogicalId: wsgLCerr2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgMOVAbserr1
+          LogicalId: wsgMOVAbserr1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgMOVAbserr2
+          LogicalId: wsgMOVAbserr2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgSTRKwrn1
+          LogicalId: wsgSTRKwrn1
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgSTRKwrn2
+          LogicalId: wsgSTRKwrn2
+        - Alias: /DanWSG/WIREROD/WS/WSGWS/sFault/FaultEvent/wsgGapAlr
+          LogicalId: wsgGapAlr
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Plant
+          Value: WIREROD
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::Asset
