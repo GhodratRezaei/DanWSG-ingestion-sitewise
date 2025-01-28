@@ -1,0 +1,733 @@
+Description: Stack for SiteWise shared models - Base signals
+Outputs:
+  CommandEventModelId:
+    Description: Id of Signal CommandEvent
+    Value: !Ref 'CommandEvent'
+  ConnectedGuideEventModelId:
+    Description: Id of Signal ConnectedGuideEvent
+    Value: !Ref 'ConnectedGuideEvent'
+  EndBilletEventModelId:
+    Description: Id of Signal EndBilletEvent
+    Value: !Ref 'EndBilletEvent'
+  FaultEventModelId:
+    Description: Id of Signal FaultEvent
+    Value: !Ref 'FaultEvent'
+Parameters:
+  Environment:
+    Description: Environment Id
+    Type: String
+  ServiceName:
+    Description: Name of the service
+    Type: String
+  TenantId:
+    Description: Tenant Id
+    Type: String
+Resources:
+  CommandEvent:
+    Properties:
+      AssetModelDescription: Commands Event
+      AssetModelName: !Sub '${ServiceName}/CommandEvent'
+      AssetModelProperties:
+        - DataType: STRING
+          LogicalId: wsgMemDanID
+          Name: wsgMemDanID
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgACT
+          Name: wsgACT
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgGDPres
+          Name: wsgGDPres
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgMatPres
+          Name: wsgMatPres
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgCurrCnt
+          Name: wsgCurrCnt
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLCValue1
+          Name: wsgLCValue1
+          Type:
+            TypeName: Measurement
+          Unit: kg
+        - DataType: DOUBLE
+          LogicalId: wsgLCValue2
+          Name: wsgLCValue2
+          Type:
+            TypeName: Measurement
+          Unit: kg
+        - DataType: DOUBLE
+          LogicalId: wsgRollerSpeed1
+          Name: wsgRollerSpeed1
+          Type:
+            TypeName: Measurement
+          Unit: rpm
+        - DataType: DOUBLE
+          LogicalId: wsgRollerSpeed2
+          Name: wsgRollerSpeed2
+          Type:
+            TypeName: Measurement
+          Unit: rpm
+        - DataType: DOUBLE
+          LogicalId: wsgPosRH1
+          Name: wsgPosRH1
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: DOUBLE
+          LogicalId: wsgPosRH2
+          Name: wsgPosRH2
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgGap
+          Name: wsgGap
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgMemCnt
+          Name: wsgMemCnt
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_SETDef
+          Name: wsgCMD_SETDef
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_SETstore
+          Name: wsgCMD_SETstore
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_VALRes
+          Name: wsgCMD_VALRes
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_ALRres
+          Name: wsgCMD_ALRres
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_DRVRes
+          Name: wsgCMD_DRVRes
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_MRSta
+          Name: wsgCMD_MRSta
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_MRStp
+          Name: wsgCMD_MRStp
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_RCSta
+          Name: wsgCMD_RCSta
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_RCStp
+          Name: wsgCMD_RCStp
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_STATw1
+          Name: wsgCMD_STATw1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_STATw2
+          Name: wsgCMD_STATw2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_SYM_OPNsta
+          Name: wsgCMD_SYM_OPNsta
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_SYM_CLSsta
+          Name: wsgCMD_SYM_CLSsta
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_JOGOpn1
+          Name: wsgCMD_JOGOpn1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_JOGOpn2
+          Name: wsgCMD_JOGOpn2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_JOGCls1
+          Name: wsgCMD_JOGCls1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_JOGCls2
+          Name: wsgCMD_JOGCls2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_RETMid1
+          Name: wsgCMD_RETMid1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_RETMid2
+          Name: wsgCMD_RETMid2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_MEMRead
+          Name: wsgCMD_MEMRead
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgCMD_MEMWrite
+          Name: wsgCMD_MEMWrite
+          Type:
+            TypeName: Measurement
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::AssetModel
+  ConnectedGuideEvent:
+    Properties:
+      AssetModelDescription: Connected Guide Event Signal
+      AssetModelName: !Sub '${ServiceName}/ConnectedGuideEvent'
+      AssetModelProperties:
+        - DataType: STRING
+          LogicalId: wsgMemDanID
+          Name: wsgMemDanID
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgACT
+          Name: wsgACT
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgGDPres
+          Name: wsgGDPres
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgMatPres
+          Name: wsgMatPres
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgCurrCnt
+          Name: wsgCurrCnt
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLCValue1
+          Name: wsgLCValue1
+          Type:
+            TypeName: Measurement
+          Unit: kg
+        - DataType: DOUBLE
+          LogicalId: wsgLCValue2
+          Name: wsgLCValue2
+          Type:
+            TypeName: Measurement
+          Unit: kg
+        - DataType: DOUBLE
+          LogicalId: wsgRollerSpeed1
+          Name: wsgRollerSpeed1
+          Type:
+            TypeName: Measurement
+          Unit: rpm
+        - DataType: DOUBLE
+          LogicalId: wsgRollerSpeed2
+          Name: wsgRollerSpeed2
+          Type:
+            TypeName: Measurement
+          Unit: rpm
+        - DataType: DOUBLE
+          LogicalId: wsgPosRH1
+          Name: wsgPosRH1
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: DOUBLE
+          LogicalId: wsgPosRH2
+          Name: wsgPosRH2
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgGap
+          Name: wsgGap
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgMemCnt
+          Name: wsgMemCnt
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgMemStrk1
+          Name: wsgMemStrk1
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgMemStrk2
+          Name: wsgMemStrk2
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgPosSet1
+          Name: wsgPosSet1
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgPosSet2
+          Name: wsgPosSet2
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: BOOLEAN
+          LogicalId: wsgAutEN
+          Name: wsgAutEN
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgADJStep
+          Name: wsgADJStep
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgMemInitGapSet
+          Name: wsgMemInitGapSet
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: DOUBLE
+          LogicalId: wsgAutADJDB
+          Name: wsgAutADJDB
+          Type:
+            TypeName: Measurement
+          Unit: '%'
+        - DataType: DOUBLE
+          LogicalId: wsgEncPLS
+          Name: wsgEncPLS
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgMotRatio
+          Name: wsgMotRatio
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgScwRatio
+          Name: wsgScwRatio
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgRlrDPTH
+          Name: wsgRlrDPTH
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: STRING
+          LogicalId: wsgMemID
+          Name: wsgMemID
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgMemPos1
+          Name: wsgMemPos1
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgMemPos2
+          Name: wsgMemPos2
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: DOUBLE
+          LogicalId: wsgRDiam
+          Name: wsgRDiam
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgMemInitGap
+          Name: wsgMemInitGap
+          Type:
+            TypeName: Measurement
+          Unit: mm
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::AssetModel
+  EndBilletEvent:
+    Properties:
+      AssetModelDescription: End Billet Event
+      AssetModelName: !Sub '${ServiceName}/EndBilletEvent'
+      AssetModelProperties:
+        - DataType: STRING
+          LogicalId: wsgMemDanID
+          Name: wsgMemDanID
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgACT
+          Name: wsgACT
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgGDPres
+          Name: wsgGDPres
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgMatPres
+          Name: wsgMatPres
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgCurrCnt
+          Name: wsgCurrCnt
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLCValue1
+          Name: wsgLCValue1
+          Type:
+            TypeName: Measurement
+          Unit: kg
+        - DataType: DOUBLE
+          LogicalId: wsgLCValue2
+          Name: wsgLCValue2
+          Type:
+            TypeName: Measurement
+          Unit: kg
+        - DataType: DOUBLE
+          LogicalId: wsgRollerSpeed1
+          Name: wsgRollerSpeed1
+          Type:
+            TypeName: Measurement
+          Unit: rpm
+        - DataType: DOUBLE
+          LogicalId: wsgRollerSpeed2
+          Name: wsgRollerSpeed2
+          Type:
+            TypeName: Measurement
+          Unit: rpm
+        - DataType: DOUBLE
+          LogicalId: wsgPosRH1
+          Name: wsgPosRH1
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: DOUBLE
+          LogicalId: wsgPosRH2
+          Name: wsgPosRH2
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgGap
+          Name: wsgGap
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgMemCnt
+          Name: wsgMemCnt
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgMRdone1
+          Name: wsgMRdone1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgMRdone2
+          Name: wsgMRdone2
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgPosDlt1
+          Name: wsgPosDlt1
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgPosDlt2
+          Name: wsgPosDlt2
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLCdifRH1
+          Name: wsgLCdifRH1
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLCdifRH2
+          Name: wsgLCdifRH2
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLClamRH1
+          Name: wsgLClamRH1
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLClamRH2
+          Name: wsgLClamRH2
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLCwaitRH1
+          Name: wsgLCwaitRH1
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLCwaitRH2
+          Name: wsgLCwaitRH2
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsglamTIM
+          Name: wsglamTIM
+          Type:
+            TypeName: Measurement
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::AssetModel
+  FaultEvent:
+    Properties:
+      AssetModelDescription: Fault Event
+      AssetModelName: !Sub '${ServiceName}/FaultEvent'
+      AssetModelProperties:
+        - DataType: STRING
+          LogicalId: wsgMemDanID
+          Name: wsgMemDanID
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgACT
+          Name: wsgACT
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgGDPres
+          Name: wsgGDPres
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgMatPres
+          Name: wsgMatPres
+          Type:
+            TypeName: Measurement
+        - DataType: INTEGER
+          LogicalId: wsgCurrCnt
+          Name: wsgCurrCnt
+          Type:
+            TypeName: Measurement
+        - DataType: DOUBLE
+          LogicalId: wsgLCValue1
+          Name: wsgLCValue1
+          Type:
+            TypeName: Measurement
+          Unit: kg
+        - DataType: DOUBLE
+          LogicalId: wsgLCValue2
+          Name: wsgLCValue2
+          Type:
+            TypeName: Measurement
+          Unit: kg
+        - DataType: DOUBLE
+          LogicalId: wsgRollerSpeed1
+          Name: wsgRollerSpeed1
+          Type:
+            TypeName: Measurement
+          Unit: rpm
+        - DataType: DOUBLE
+          LogicalId: wsgRollerSpeed2
+          Name: wsgRollerSpeed2
+          Type:
+            TypeName: Measurement
+          Unit: rpm
+        - DataType: DOUBLE
+          LogicalId: wsgPosRH1
+          Name: wsgPosRH1
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: DOUBLE
+          LogicalId: wsgPosRH2
+          Name: wsgPosRH2
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgGap
+          Name: wsgGap
+          Type:
+            TypeName: Measurement
+          Unit: mm
+        - DataType: INTEGER
+          LogicalId: wsgMemCnt
+          Name: wsgMemCnt
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsFLGrlr1
+          Name: bmsFLGrlr1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsFLGrlr2
+          Name: bmsFLGrlr2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsFLTrlr1
+          Name: bmsFLTrlr1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsFLTrlr2
+          Name: bmsFLTrlr2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsWARrlr1
+          Name: bmsWARrlr1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsWARrlr2
+          Name: bmsWARrlr2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsDECtimDiff
+          Name: bmsDECtimDiff
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsRLRSpdDiff
+          Name: bmsRLRSpdDiff
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsDECtimSet
+          Name: bmsDECtimSet
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: bmsSPDDiffSet
+          Name: bmsSPDDiffSet
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgDRVerr1
+          Name: wsgDRVerr1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgDRVerr2
+          Name: wsgDRVerr2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgJOGerr1
+          Name: wsgJOGerr1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgJOGerr2
+          Name: wsgJOGerr2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgLCerr1
+          Name: wsgLCerr1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgLCerr2
+          Name: wsgLCerr2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgMOVAbserr1
+          Name: wsgMOVAbserr1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgMOVAbserr2
+          Name: wsgMOVAbserr2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgSTRKwrn1
+          Name: wsgSTRKwrn1
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgSTRKwrn2
+          Name: wsgSTRKwrn2
+          Type:
+            TypeName: Measurement
+        - DataType: BOOLEAN
+          LogicalId: wsgGapAlr
+          Name: wsgGapAlr
+          Type:
+            TypeName: Measurement
+      Tags:
+        - Key: Environment
+          Value: !Ref 'Environment'
+        - Key: Service
+          Value: !Ref 'ServiceName'
+        - Key: TaggingModel
+          Value: TGPSE
+        - Key: Tenant
+          Value: !Ref 'TenantId'
+    Type: AWS::IoTSiteWise::AssetModel

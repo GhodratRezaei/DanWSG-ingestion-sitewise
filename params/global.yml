@@ -1,0 +1,3 @@
+Parameters:
+  # DO NOT REMOVE - Resolved from Systems Manager Parameter Store
+  StagingBucketName: "resolve:artifacts_staging_bucket"

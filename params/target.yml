@@ -1,0 +1,9 @@
+Parameters:
+  ServiceName: "DanWSG"
+  TenantId: "c097844devcogne"
+  Environment: "dev"
+  TenantModules: |
+    - hierarchy:
+      dependencies:
+        - line_WS
+    - line_WS
